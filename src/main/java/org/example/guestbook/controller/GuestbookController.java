@@ -11,22 +11,19 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class GuestbookController {
 
-    private final GuestbookRepository repository;
+    private final GuestbookRepository guestbookRepository;
 
-    public GuestbookController(GuestbookRepository repository) {
-        this.repository = repository;
+    public GuestbookController(GuestbookRepository guestbookRepository) {
+        this.guestbookRepository = guestbookRepository;
     }
 
     @GetMapping
-    public List<Guestbook> findAll() {
-        return repository.findAll();
+    public List<Guestbook> getGuestbooks() {
+        return guestbookRepository.findAll();
     }
 
     @PostMapping
-    public void save(@RequestBody Guestbook request) {
-        repository.save(
-                new Guestbook(request.getNickname(), request.getContent())
-        );
+    public Guestbook createGuestbook(@RequestBody Guestbook guestbook) {
+        return guestbookRepository.save(guestbook);
     }
 }
-
